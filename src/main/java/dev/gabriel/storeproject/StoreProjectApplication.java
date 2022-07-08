@@ -1,13 +1,8 @@
 package dev.gabriel.storeproject;
 
-import dev.gabriel.storeproject.domain.Category;
-import dev.gabriel.storeproject.domain.City;
-import dev.gabriel.storeproject.domain.Product;
-import dev.gabriel.storeproject.domain.State;
-import dev.gabriel.storeproject.repository.CategoryRepository;
-import dev.gabriel.storeproject.repository.CityRepository;
-import dev.gabriel.storeproject.repository.ProductRepository;
-import dev.gabriel.storeproject.repository.StateRepository;
+import dev.gabriel.storeproject.domain.*;
+import dev.gabriel.storeproject.domain.enums.ClientType;
+import dev.gabriel.storeproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +15,9 @@ import java.util.Arrays;
 public class StoreProjectApplication implements CommandLineRunner {
 
 	final CategoryRepository categoryRepository;
+	final AddressRepository addressRepository;
 	final ProductRepository productRepository;
+	final ClientRepository clientRepository;
 	final StateRepository stateRepository;
 	final CityRepository cityRepository;
 	public static void main(String[] args) {
@@ -52,10 +49,26 @@ public class StoreProjectApplication implements CommandLineRunner {
 		st1.getCities().add(c1);
 		st2.getCities().addAll(Arrays.asList(c2, c3));
 
+		Client cli1 = new Client("Mary Jane", "mary@jane.com", "12332132", ClientType.PERSON);
+
+		cli1.getPhoneNumbers().addAll(Arrays.asList("1234567890", "0987654321"));
+		Client cli2 = new Client("John Dilly", "johnny@mail.com", "12758492", ClientType.PERSON);
+
+		Address e1 = new Address("Main Street", "300", "Apt 123", "51030450", cli1, c1);
+
+		Address e2 = new Address("Seen Street", "660", "", "99999999", cli1, c2);
+
+		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+
+
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		stateRepository.saveAll(Arrays.asList(st1, st2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+		clientRepository.saveAll(Arrays.asList(cli1, cli2));
+		addressRepository.saveAll(Arrays.asList(e1, e2));
+
+
 	}
 
 }
