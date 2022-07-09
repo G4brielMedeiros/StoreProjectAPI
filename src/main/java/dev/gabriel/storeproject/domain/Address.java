@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,6 +39,7 @@ public class Address implements Serializable {
 
     @NonNull
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     @ManyToOne
     private Client client;
 

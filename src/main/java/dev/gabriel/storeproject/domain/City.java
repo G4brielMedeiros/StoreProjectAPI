@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,10 +25,10 @@ public class City implements Serializable {
     @EqualsAndHashCode.Exclude
     private String name;
 
-
     @NonNull
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonManagedReference
     @ManyToOne
     private State state;
 }

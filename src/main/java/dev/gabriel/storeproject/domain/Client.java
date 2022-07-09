@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.gabriel.storeproject.domain.enums.ClientType;
 import lombok.*;
 
@@ -41,6 +42,7 @@ public class Client implements Serializable {
     private Integer type;
 
     @EqualsAndHashCode.Exclude
+    @JsonManagedReference
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 

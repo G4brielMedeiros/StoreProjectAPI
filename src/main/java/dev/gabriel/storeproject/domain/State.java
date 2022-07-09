@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class State implements Serializable {
     private String name;
 
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     @OneToMany(mappedBy = "state")
     private List<City> cities = new ArrayList<>();
 }

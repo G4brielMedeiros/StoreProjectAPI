@@ -1,4 +1,4 @@
-package dev.gabriel.storeproject.resource.exception;
+package dev.gabriel.storeproject.controller.exception;
 
 import lombok.*;
 

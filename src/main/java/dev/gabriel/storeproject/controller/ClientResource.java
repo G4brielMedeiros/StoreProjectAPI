@@ -1,7 +1,7 @@
-package dev.gabriel.storeproject.resource;
+package dev.gabriel.storeproject.controller;
 
-import dev.gabriel.storeproject.domain.Category;
-import dev.gabriel.storeproject.service.CategoryService;
+import dev.gabriel.storeproject.domain.Client;
+import dev.gabriel.storeproject.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/clients")
 @RequiredArgsConstructor
-public class CategoryResource {
+public class ClientResource {
 
-    final CategoryService service;
+    final ClientService service;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Integer id) {
 
-        Category category = service.findById(id);
-        return ResponseEntity.ok().body(category);
+        Client client = service.findById(id);
+        return ResponseEntity.ok().body(client);
     }
 }

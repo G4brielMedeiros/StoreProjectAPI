@@ -1,4 +1,4 @@
-package dev.gabriel.storeproject.resource.exception;
+package dev.gabriel.storeproject.controller.exception;
 
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
