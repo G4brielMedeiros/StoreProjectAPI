@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
@@ -39,4 +41,8 @@ public class Purchase implements Serializable {
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     private Address deliveryAddress;
+
+    @OneToMany(mappedBy = "id.purchase")
+    @EqualsAndHashCode.Exclude
+    private Set<PurchaseItem> items = new HashSet<>();
 }

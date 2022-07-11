@@ -17,6 +17,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class StoreProjectApplication implements CommandLineRunner {
 
+	final PurchaseItemRepository purchaseItemRepository;
 	final PurchaseRepository purchaseRepository;
 	final CategoryRepository categoryRepository;
 	final AddressRepository addressRepository;
@@ -25,6 +26,7 @@ public class StoreProjectApplication implements CommandLineRunner {
 	final ClientRepository clientRepository;
 	final StateRepository stateRepository;
 	final CityRepository cityRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(StoreProjectApplication.class, args);
 	}
@@ -77,6 +79,17 @@ public class StoreProjectApplication implements CommandLineRunner {
 
 		cli1.getPurchases().addAll(Arrays.asList(pur1, pur2));
 
+		PurchaseItem pi1 = new PurchaseItem(pur1, p1, 0.00, 1, 2000.00);
+		PurchaseItem pi2 = new PurchaseItem(pur1, p3, 0.00, 2, 80.00);
+		PurchaseItem pi3 = new PurchaseItem(pur2, p2, 100.00, 1, 800.00);
+
+		pur1.getItems().addAll(Arrays.asList(pi1, pi2));
+		pur2.getItems().add(pi3);
+
+		p1.getItems().add(pi1);
+		p2.getItems().add(pi3);
+		p3.getItems().add(pi2);
+
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		stateRepository.saveAll(Arrays.asList(st1, st2));
@@ -85,6 +98,7 @@ public class StoreProjectApplication implements CommandLineRunner {
 		addressRepository.saveAll(Arrays.asList(e1, e2));
 		purchaseRepository.saveAll((Arrays.asList(pur1, pur2)));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		purchaseItemRepository.saveAll(Arrays.asList(pi1, pi2, pi3));
 
 
 	}

@@ -7,7 +7,10 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @RequiredArgsConstructor
@@ -39,5 +42,15 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.product")
+    @EqualsAndHashCode.Exclude
+
+    private Set<PurchaseItem> items = new HashSet<>();
+
+    public List<Purchase> getPurchases() {
+        return items.stream().map(PurchaseItem::getPurchase).collect(Collectors.toList());
+    }
+
 
 }
