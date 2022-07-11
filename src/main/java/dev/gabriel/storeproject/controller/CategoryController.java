@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.controller;
 
 import dev.gabriel.storeproject.domain.Category;
+import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -16,10 +18,16 @@ public class CategoryController {
 
     final CategoryService service;
 
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> categoryList = service.findAll().stream().map(CategoryDTO::new).toList();
+        return ResponseEntity.ok(categoryList);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Category> findById(@PathVariable Integer id) {
         Category category = service.findById(id);
-        return ResponseEntity.ok().body(category);
+        return ResponseEntity.ok(category);
     }
 
     @PostMapping

@@ -8,11 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService implements EntityService<Category>{
 
     final CategoryRepository repository;
+
+    public List<Category> findAll() {
+        return repository.findAll();
+    }
 
     public Category findById(Integer id) {
         return repository.findById(id).orElseThrow(
