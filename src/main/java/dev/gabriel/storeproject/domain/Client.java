@@ -52,6 +52,11 @@ public class Client implements Serializable {
     @Column(name = "phone_number")
     private Set<String> phoneNumbers = new HashSet<>();
 
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "client")
+    private List<Purchase> purchases = new ArrayList<>();
+
     public Client() {
     }
 
@@ -61,7 +66,6 @@ public class Client implements Serializable {
         this.governmentRegistration = governmentRegistration;
         this.type = type.getCode();
     }
-
 
     public void setType(ClientType type) {
         this.type = type.getCode();
