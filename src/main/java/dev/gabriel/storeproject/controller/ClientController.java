@@ -17,7 +17,7 @@ public class ClientController {
     final ClientService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<Client> findById(@PathVariable Integer id) {
 
         Client client = service.findById(id);
         return ResponseEntity.ok().body(client);

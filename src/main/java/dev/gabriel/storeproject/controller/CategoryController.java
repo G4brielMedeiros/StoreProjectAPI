@@ -17,18 +17,26 @@ public class CategoryController {
     final CategoryService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<Category> findById(@PathVariable Integer id) {
         Category category = service.findById(id);
         return ResponseEntity.ok().body(category);
     }
 
     @PostMapping
-    public ResponseEntity<Void> post(@RequestBody Category obj) {
+    public ResponseEntity<Void> create(@RequestBody Category obj) {
         Category category = service.add(obj);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(category.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody Category obj, @PathVariable Integer id) {
+        obj.setId(id);
+        Category category = service.update(obj);
+
+        return  ResponseEntity.noContent().build();
     }
 }

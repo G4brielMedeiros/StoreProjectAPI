@@ -17,7 +17,7 @@ public class PurchaseController {
     final PurchaseService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Integer id) {
+    public ResponseEntity<Purchase> findById(@PathVariable Integer id) {
 
         Purchase purchase = service.findById(id);
         return ResponseEntity.ok().body(purchase);
