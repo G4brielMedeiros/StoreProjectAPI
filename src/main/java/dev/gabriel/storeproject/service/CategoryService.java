@@ -2,8 +2,10 @@ package dev.gabriel.storeproject.service;
 
 import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.repository.CategoryRepository;
+import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,5 +29,13 @@ public class CategoryService implements EntityService<Category>{
         return repository.save(obj);
     }
 
+    public void deleteById(Integer id) {
+        findById(id);
+
+        try { repository.deleteById(id); }
+        catch (DataIntegrityViolationException exception) {
+            throw new DataIntegrityException("Cannot delete a category that has products.");
+        }
+    }
 
 }
