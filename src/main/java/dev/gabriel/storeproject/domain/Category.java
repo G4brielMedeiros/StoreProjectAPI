@@ -1,6 +1,5 @@
 package dev.gabriel.storeproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +26,6 @@ public class Category implements Serializable {
     private String name;
 
     @EqualsAndHashCode.Exclude
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 }

@@ -1,6 +1,5 @@
 package dev.gabriel.storeproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -35,7 +34,7 @@ public class Product implements Serializable {
     private double price;
 
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "product_category",

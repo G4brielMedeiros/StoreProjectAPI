@@ -1,6 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.gabriel.storeproject.domain.enums.PaymentStatus;
 import lombok.*;
 
@@ -32,7 +32,7 @@ public abstract class Payment implements Serializable {
     @OneToOne
     @JoinColumn(name = "purchase_id")
     @MapsId
-    @JsonBackReference
+    @JsonIgnore
     private Purchase purchase;
 
     public Payment(PaymentStatus status, Purchase purchase) {

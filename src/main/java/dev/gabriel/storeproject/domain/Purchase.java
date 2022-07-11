@@ -1,7 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,14 +30,12 @@ public class Purchase implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "purchase")
-    @JsonManagedReference
     private Payment payment;
 
     @NonNull
     @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonManagedReference
     private Client client;
 
     @NonNull
