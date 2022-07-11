@@ -17,5 +17,10 @@ public class CategoryService implements EntityService<Category>{
                 () -> new ObjectNotFoundException("" + Category.class.getSimpleName() + " not found. Id: " + id));
     }
 
+    public Category add(Category obj) {
+        obj.setId(null);
+        return repository.save(obj);
+    }
+
 
 }
