@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,9 +46,10 @@ public class Product implements Serializable {
 
     @OneToMany(mappedBy = "id.product")
     @EqualsAndHashCode.Exclude
-
+    @JsonIgnore
     private Set<PurchaseItem> items = new HashSet<>();
 
+    @JsonIgnore
     public List<Purchase> getPurchases() {
         return items.stream().map(PurchaseItem::getPurchase).collect(Collectors.toList());
     }

@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.gabriel.storeproject.domain.enums.ClientType;
 import lombok.*;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 @Entity
 public class Client implements Serializable {
 
@@ -55,10 +57,8 @@ public class Client implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client")
+    @JsonBackReference
     private List<Purchase> purchases = new ArrayList<>();
-
-    public Client() {
-    }
 
     public Client(@NonNull String name, @NonNull String email, @NonNull String governmentRegistration, @NonNull ClientType type) {
         this.name = name;

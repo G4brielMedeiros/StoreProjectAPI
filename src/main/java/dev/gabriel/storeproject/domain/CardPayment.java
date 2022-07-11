@@ -13,14 +13,14 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @Entity
-public class CreditPayment extends Payment implements Serializable {
+public class CardPayment extends Payment implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     private Integer installments;
 
-    public CreditPayment(PaymentStatus status, Purchase purchase, Integer installments) {
+    public CardPayment(PaymentStatus status, Purchase purchase, Integer installments) {
         super(status, purchase);
         this.installments = installments;
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/clients")
 @RequiredArgsConstructor
-public class ClientResource {
+public class ClientController {
 
     final ClientService service;
 

@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class PurchaseItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @JsonIgnore
     private PurchaseItemPK id = new PurchaseItemPK();
 
     @EqualsAndHashCode.Exclude
@@ -37,6 +39,7 @@ public class PurchaseItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Purchase getPurchase() {
         return id.getPurchase();
     }

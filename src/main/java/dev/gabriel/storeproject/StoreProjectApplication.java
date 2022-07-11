@@ -71,7 +71,7 @@ public class StoreProjectApplication implements CommandLineRunner {
 		Purchase pur1 = new Purchase(sdf.parse("30/09/2017 10:32"), cli1, e1);
 		Purchase pur2 = new Purchase(sdf.parse("10/10/2017 19:35"), cli1, e2);
 
-		Payment pay1 = new CreditPayment(PaymentStatus.PAID, pur1, 6);
+		Payment pay1 = new CardPayment(PaymentStatus.PAID, pur1, 6);
 		Payment pay2 = new InvoicePayment(PaymentStatus.PENDING, pur2, sdf.parse("20/10/2012 00:00"), null);
 
 		pur1.setPayment(pay1);
