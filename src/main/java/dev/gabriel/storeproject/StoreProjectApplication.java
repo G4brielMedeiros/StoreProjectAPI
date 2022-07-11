@@ -34,6 +34,11 @@ public class StoreProjectApplication implements CommandLineRunner {
 	public void run(String... args) throws ParseException {
 		Category cat1 = new Category("Technology");
 		Category cat2 = new Category("Office");
+		Category cat3 = new Category("Bathroom");
+		Category cat4 = new Category("Food");
+		Category cat5 = new Category("Pets");
+		Category cat6 = new Category("Clothes");
+		Category cat7 = new Category("Mats");
 
 		Product p1 = new Product("Computer", 2000);
 		Product p2 = new Product("Printer", 800);
@@ -90,7 +95,7 @@ public class StoreProjectApplication implements CommandLineRunner {
 		p2.getItems().add(pi3);
 		p3.getItems().add(pi2);
 
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		stateRepository.saveAll(Arrays.asList(st1, st2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));

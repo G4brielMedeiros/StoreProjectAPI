@@ -6,6 +6,9 @@ import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +45,12 @@ public class CategoryService implements EntityService<Category>{
         catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityException("Cannot delete a category that has products.");
         }
+    }
+
+    public Page<Category> findPage( Integer page, Integer size, String orderBy, String direction ) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
+
+        return repository.findAll(pageRequest);
     }
 
 }

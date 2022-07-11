@@ -4,7 +4,10 @@ import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -53,4 +56,18 @@ public class CategoryController {
         service.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<CategoryDTO>> findPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "24") Integer size,
+            @RequestParam(defaultValue = "name") String orderBy,
+            @RequestParam(defaultValue = "ASC") String direction
+    ) {
+        Page<Category> categoryList = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
+        Page<CategoryDTO> dtoPage = categoryList.map(CategoryDTO::new);
+        return ResponseEntity.ok(dtoPage);
+    }
+
+
 }
