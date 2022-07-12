@@ -7,10 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -24,41 +21,30 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String name;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String email;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String governmentRegistration;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Integer type;
 
-    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
-    @EqualsAndHashCode.Exclude
     @ElementCollection
     @CollectionTable(name = "phone_number")
     @Column(name = "phone_number")
     private Set<String> phoneNumbers = new HashSet<>();
 
 
-    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     private List<Purchase> purchases = new ArrayList<>();
 
-    public Client(@NonNull String name, @NonNull String email, @NonNull String governmentRegistration, @NonNull ClientType type) {
+    public Client(String name, String email, String governmentRegistration, ClientType type) {
         this.name = name;
         this.email = email;
         this.governmentRegistration = governmentRegistration;
@@ -71,5 +57,18 @@ public class Client implements Serializable {
 
     public ClientType getType() {
         return ClientType.toEnum(this.type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

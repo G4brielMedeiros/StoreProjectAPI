@@ -34,9 +34,9 @@ public class CategoryService implements EntityService<Category>{
         return repository.save(obj);
     }
 
-    public Category update(Category obj) {
+    public void update(Category obj) {
         findById(obj.getId());
-        return repository.save(obj);
+        repository.save(obj);
     }
 
     public void deleteById(Integer id) {
