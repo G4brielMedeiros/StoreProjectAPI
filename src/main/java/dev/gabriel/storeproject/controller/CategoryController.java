@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody Category obj) {
-        Category category = service.add(obj);
+    public ResponseEntity<Void> create( @Valid @RequestBody CategoryDTO dto) {
+        Category category = service.add(service.fromDTO(dto));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(category.getId()).toUri();
@@ -44,11 +45,10 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@RequestBody Category obj, @PathVariable Integer id) {
-        obj.setId(id);
-        Category category = service.update(obj);
-
-        return  ResponseEntity.noContent().build();
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO dto, @PathVariable Integer id) {
+        dto.setId(id);
+        service.update(service.fromDTO(dto));
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

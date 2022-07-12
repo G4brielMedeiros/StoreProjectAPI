@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.service;
 
 import dev.gabriel.storeproject.domain.Category;
+import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.repository.CategoryRepository;
 import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
@@ -51,6 +52,13 @@ public class CategoryService implements EntityService<Category>{
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
 
         return repository.findAll(pageRequest);
+    }
+
+    public Category fromDTO(CategoryDTO dto) {
+        Category category = new Category(dto.getName());
+        category.setId(dto.getId());
+
+        return category;
     }
 
 }
