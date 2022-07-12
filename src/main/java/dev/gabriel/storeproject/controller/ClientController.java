@@ -21,9 +21,8 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> findById(@PathVariable Integer id) {
-
         Client client = service.findById(id);
-        return ResponseEntity.ok().body(client);
+        return ResponseEntity.ok(client);
     }
 
     @GetMapping
@@ -35,7 +34,7 @@ public class ClientController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody ClientDTO dto, @PathVariable Integer id) {
         dto.setId(id);
-        service.update(service.fromDTO(dto));
+        service.update(dto);
         return ResponseEntity.noContent().build();
     }
 
@@ -52,9 +51,7 @@ public class ClientController {
             @RequestParam(defaultValue = "name") String orderBy,
             @RequestParam(defaultValue = "ASC") String direction
     ) {
-        Page<Client> clientList = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
-        Page<ClientDTO> dtoPage = clientList.map(ClientDTO::new);
+        Page<ClientDTO> dtoPage = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
         return ResponseEntity.ok(dtoPage);
     }
-
 }

@@ -29,9 +29,11 @@ public class ClientService implements EntityService<Client> {
                 () -> new ObjectNotFoundException("" + Client.class.getSimpleName() + " not found. Id: " + id));
     }
 
-    public void update(Client obj) {
-        findById(obj.getId());
-        repository.save(obj);
+    public void update(ClientDTO dto) {
+        Client client = findById(dto.getId());
+        client.setName(dto.getName());
+        client.setEmail(dto.getEmail());
+        repository.save(client);
     }
 
     public void deleteById(Integer id) {
@@ -44,16 +46,10 @@ public class ClientService implements EntityService<Client> {
         }
     }
 
-    public Page<Client> findPage(Integer page, Integer size, String orderBy, String direction) {
+    public Page<ClientDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
 
-        return repository.findAll(pageRequest);
-    }
-
-    public Client fromDTO(ClientDTO dto) {
-        Client client = findById(dto.getId());
-        client.setName(dto.getName());
-        client.setEmail(dto.getEmail());
-        return client;
+        Page<Client> clientList =  repository.findAll(pageRequest);
+        return clientList.map(ClientDTO::new);
     }
 }

@@ -5,7 +5,6 @@ import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +21,14 @@ public class CategoryController {
 
     final CategoryService service;
 
-    @GetMapping
-    public ResponseEntity<List<CategoryDTO>> findAll() {
-        List<CategoryDTO> categoryList = service.findAll().stream().map(CategoryDTO::new).toList();
-        return ResponseEntity.ok(categoryList);
+    @PostMapping
+    public ResponseEntity<Void> create( @Valid @RequestBody CategoryDTO dto) {
+        Category category = service.add(dto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(category.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/{id}")
@@ -34,20 +37,16 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @PostMapping
-    public ResponseEntity<Void> create( @Valid @RequestBody CategoryDTO dto) {
-        Category category = service.add(service.fromDTO(dto));
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(category.getId()).toUri();
-
-        return ResponseEntity.created(uri).build();
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> categoryList = service.findAll().stream().map(CategoryDTO::new).toList();
+        return ResponseEntity.ok(categoryList);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO dto, @PathVariable Integer id) {
         dto.setId(id);
-        service.update(service.fromDTO(dto));
+        service.update(dto);
         return ResponseEntity.noContent().build();
     }
 
@@ -64,10 +63,7 @@ public class CategoryController {
             @RequestParam(defaultValue = "name") String orderBy,
             @RequestParam(defaultValue = "ASC") String direction
     ) {
-        Page<Category> categoryList = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
-        Page<CategoryDTO> dtoPage = categoryList.map(CategoryDTO::new);
+        Page<CategoryDTO> dtoPage = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
         return ResponseEntity.ok(dtoPage);
     }
-
-
 }

@@ -11,12 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryService implements EntityService<Category>{
+public class CategoryService implements EntityService<Category> {
 
     final CategoryRepository repository;
 
@@ -29,36 +30,32 @@ public class CategoryService implements EntityService<Category>{
                 () -> new ObjectNotFoundException("" + Category.class.getSimpleName() + " not found. Id: " + id));
     }
 
-    public Category add(Category obj) {
-        obj.setId(null);
-        return repository.save(obj);
+    public Category add(CategoryDTO dto) {
+        Category category = new Category(dto.getName());
+        return repository.save(category);
     }
 
-    public void update(Category obj) {
-        findById(obj.getId());
-        repository.save(obj);
+    public void update(CategoryDTO dto) {
+        Category category = findById(dto.getId());
+        category.setName(dto.getName());
+        repository.save(category);
     }
 
     public void deleteById(Integer id) {
         findById(id);
 
-        try { repository.deleteById(id); }
-        catch (DataIntegrityViolationException exception) {
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException exception) {
             throw new DataIntegrityException("Cannot delete a category that has products.");
         }
     }
 
-    public Page<Category> findPage( Integer page, Integer size, String orderBy, String direction ) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
+    public Page<CategoryDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest
+                .of(page, size, Sort.Direction.valueOf(StringUtils.capitalize(direction)), orderBy);
 
-        return repository.findAll(pageRequest);
+        Page<Category> categoryPage = repository.findAll(pageRequest);
+        return categoryPage.map(CategoryDTO::new);
     }
-
-    public Category fromDTO(CategoryDTO dto) {
-        Category category = new Category(dto.getName());
-        category.setId(dto.getId());
-
-        return category;
-    }
-
 }
