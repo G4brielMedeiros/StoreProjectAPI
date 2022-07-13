@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.dto;
 
 import dev.gabriel.storeproject.domain.Client;
+import dev.gabriel.storeproject.service.validation.ClientUpdate;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 @NoArgsConstructor
+@ClientUpdate
 public class ClientDTO implements Serializable {
 
     @Serial
