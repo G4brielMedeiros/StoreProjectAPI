@@ -13,6 +13,7 @@ import dev.gabriel.storeproject.repository.ClientRepository;
 import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,8 +54,8 @@ public class ClientService implements EntityService<Client> {
         Address address = new Address(
                 dto.getStreet(),
                 dto.getNumber(),
-                dto.getPostalCode(),
                 dto.getComplement(),
+                dto.getPostalCode(),
                 client,
                 city
         );
@@ -76,8 +77,7 @@ public class ClientService implements EntityService<Client> {
 
     public void update(ClientDTO dto) {
         Client client = findById(dto.getId());
-        client.setName(dto.getName());
-        client.setEmail(dto.getEmail());
+        BeanUtils.copyProperties(dto, client);
         repository.save(client);
     }
 
