@@ -1,15 +1,20 @@
 package dev.gabriel.storeproject.controller;
 
+import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.domain.Client;
+import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.dto.ClientDTO;
+import dev.gabriel.storeproject.dto.NewClientDTO;
 import dev.gabriel.storeproject.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -18,6 +23,16 @@ import java.util.List;
 public class ClientController {
 
     final ClientService service;
+
+    @PostMapping
+    public ResponseEntity<Void> create( @Valid @RequestBody NewClientDTO dto) {
+        Client client = service.add(dto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(client.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> findById(@PathVariable Integer id) {

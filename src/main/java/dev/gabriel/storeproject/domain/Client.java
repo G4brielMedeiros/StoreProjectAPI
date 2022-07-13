@@ -20,18 +20,15 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
     private String email;
-
     private String governmentRegistration;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Integer type;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
     private List<Address> addresses = new ArrayList<>();
 
     @ElementCollection

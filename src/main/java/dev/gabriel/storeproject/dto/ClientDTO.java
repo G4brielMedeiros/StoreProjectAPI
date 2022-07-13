@@ -2,7 +2,9 @@ package dev.gabriel.storeproject.dto;
 
 import dev.gabriel.storeproject.domain.Client;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -10,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 public class ClientDTO implements Serializable {
 

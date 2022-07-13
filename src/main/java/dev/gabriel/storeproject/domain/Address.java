@@ -7,9 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Address implements Serializable {
@@ -20,34 +20,38 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String street;
-
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String number;
-
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String complement;
-
-    @NonNull
-    @EqualsAndHashCode.Exclude
     private String postalCode;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     @JsonIgnore
     @ManyToOne
     private Client client;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne
     private City city;
 
+    public Address(String street, String number, String complement, String postalCode, Client client, City city) {
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.postalCode = postalCode;
+        this.client = client;
+        this.city = city;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
