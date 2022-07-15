@@ -18,8 +18,7 @@ import java.io.Serializable;
 @ClientUpdate
 public class ClientDTO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     private Integer id;
 
@@ -36,5 +35,4 @@ public class ClientDTO implements Serializable {
         this.name = obj.getName();
         this.email = obj.getEmail();
     }
-
 }

@@ -10,8 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ProductDTO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     private Integer id;
     private String name;
@@ -22,6 +21,4 @@ public class ProductDTO implements Serializable {
         this.name = obj.getName();
         this.price = obj.getPrice();
     }
-
-
 }

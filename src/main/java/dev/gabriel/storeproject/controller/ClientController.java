@@ -1,15 +1,12 @@
 package dev.gabriel.storeproject.controller;
 
-import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.domain.Client;
-import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.dto.ClientDTO;
 import dev.gabriel.storeproject.dto.NewClientDTO;
 import dev.gabriel.storeproject.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -66,7 +63,7 @@ public class ClientController {
             @RequestParam(defaultValue = "name") String orderBy,
             @RequestParam(defaultValue = "ASC") String direction
     ) {
-        Page<ClientDTO> dtoPage = service.findPage(page, size, orderBy, StringUtils.capitalize(direction));
+        Page<ClientDTO> dtoPage = service.findPage(page, size, orderBy, direction);
         return ResponseEntity.ok(dtoPage);
     }
 }

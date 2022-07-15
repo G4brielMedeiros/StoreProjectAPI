@@ -16,9 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClientInsertValidator implements ConstraintValidator<ClientInsert, NewClientDTO> {
 
-
     final ClientRepository clientRepository;
-
     @Override
     public void initialize(ClientInsert ann) {}
 
@@ -26,11 +24,11 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
     public boolean isValid(NewClientDTO dto, ConstraintValidatorContext context) {
         List<FieldMessage> fieldMessageList = new ArrayList<>();
 
-        if (dto.getType().equals(ClientType.PERSON.getCode()) && !Brazil.isValidCPF(dto.getGovernmentRegistration())) {
+        if (dto.getType() != null && dto.getType().equals(ClientType.PERSON.getCode()) && !Brazil.isValidCPF(dto.getGovernmentRegistration())) {
             fieldMessageList.add(new FieldMessage("governmentRegistration", "Invalid CPF"));
         }
 
-        if (dto.getType().equals(ClientType.BUSINESS.getCode()) && !Brazil.isValidCNPJ(dto.getGovernmentRegistration())) {
+        if (dto.getType() != null && dto.getType().equals(ClientType.BUSINESS.getCode()) && !Brazil.isValidCNPJ(dto.getGovernmentRegistration())) {
             fieldMessageList.add(new FieldMessage("governmentRegistration", "Invalid CNPJ"));
         }
 

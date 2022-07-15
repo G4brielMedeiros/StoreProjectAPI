@@ -17,12 +17,10 @@ public enum ClientType {
     private final String description;
 
     public static ClientType toEnum(Integer code) {
-
         if (code == null) return null;
 
         var clientType = Arrays.stream(ClientType.values()).filter(c -> code.equals(c.code)).findAny();
 
         return clientType.orElseThrow(() -> new IllegalArgumentException("Invalid ID: " + code));
-
     }
 }

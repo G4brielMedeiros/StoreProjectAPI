@@ -8,27 +8,19 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Payment implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @Getter
-    @Setter
+    @Id @Getter @Setter
     private Integer id;
 
-    @EqualsAndHashCode.Exclude
     private Integer status;
 
-    @Getter
-    @Setter
-    @EqualsAndHashCode.Exclude
+    @Getter @Setter
     @OneToOne
     @JoinColumn(name = "purchase_id")
     @MapsId

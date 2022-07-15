@@ -2,8 +2,8 @@ package dev.gabriel.storeproject.controller.util;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class URL {
 
@@ -12,6 +12,6 @@ public class URL {
     }
 
     public static List<Integer> decodeIntegerList(String string) {
-        return Arrays.stream(string.split(",")).map(Integer::parseInt).toList();
+        return Stream.of(string.split(",")).map(Integer::parseInt).toList();
     }
 }

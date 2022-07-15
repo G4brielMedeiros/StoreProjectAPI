@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -15,10 +16,9 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class InvoicePayment extends Payment {
+public class InvoicePayment extends Payment implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date expiringDate;
@@ -29,6 +29,5 @@ public class InvoicePayment extends Payment {
         super(status, purchase);
         this.expiringDate = expiringDate;
         this.paymentDate = paymentDate;
-
     }
 }

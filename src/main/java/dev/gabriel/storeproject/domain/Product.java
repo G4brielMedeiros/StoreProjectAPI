@@ -12,28 +12,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Product implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    private String name;
+    @NonNull private String name;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    private double price;
+    @NonNull private double price;
 
-    @EqualsAndHashCode.Exclude
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -43,15 +37,12 @@ public class Product implements Serializable {
     )
     private List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.product")
-    @EqualsAndHashCode.Exclude
     @JsonIgnore
+    @OneToMany(mappedBy = "id.product")
     private Set<PurchaseItem> items = new HashSet<>();
 
     @JsonIgnore
     public List<Purchase> getPurchases() {
         return items.stream().map(PurchaseItem::getPurchase).collect(Collectors.toList());
     }
-
-
 }

@@ -27,7 +27,14 @@ public class ProductService implements EntityService<Product>{
                 () -> new ObjectNotFoundException("" + Product.class.getSimpleName() + " not found. Id: " + id));
     }
 
-    public Page<ProductDTO> search(String name, List<Integer> categoryIds, Integer page, Integer size, String orderBy, String direction) {
+    public Page<ProductDTO> search(
+            String name,
+            List<Integer> categoryIds,
+            Integer page,
+            Integer size,
+            String orderBy,
+            String direction
+    ) {
         PageRequest pageRequest = PageRequest
                 .of(page, size, Sort.Direction.valueOf(StringUtils.capitalize(direction)), orderBy);
 

@@ -18,12 +18,10 @@ public enum PaymentStatus {
     private final String description;
 
     public static PaymentStatus toEnum(Integer code) {
-
         if (code == null) return null;
 
         var paymentState = Arrays.stream(PaymentStatus.values()).filter(c -> code.equals(c.code)).findAny();
 
         return paymentState.orElseThrow(() -> new IllegalArgumentException("Invalid ID: " + code));
-
     }
 }

@@ -9,24 +9,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 public class State implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    private String name;
+    @NonNull private String name;
 
-    @EqualsAndHashCode.Exclude
     @JsonIgnore
     @OneToMany(mappedBy = "state")
     private List<City> cities = new ArrayList<>();

@@ -27,8 +27,8 @@ public class ProductController {
 
     @GetMapping()
     public ResponseEntity<Page<ProductDTO>> findPage(
-            @RequestParam(defaultValue = "0") String name,
-            @RequestParam(defaultValue = "0") String categories,
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "1,2,3,4,5,6,7") String categories,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "24") Integer size,
             @RequestParam(defaultValue = "name") String orderBy,

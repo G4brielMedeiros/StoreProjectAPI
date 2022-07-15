@@ -7,10 +7,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Address implements Serializable {
 
@@ -20,38 +20,19 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String street;
-    private String number;
-    private String complement;
-    private String postalCode;
+
+    @NonNull private String street;
+
+    @NonNull private String number;
+
+    @NonNull private String complement;
+
+    @NonNull private String postalCode;
 
     @JsonIgnore
     @ManyToOne
-    private Client client;
+    @NonNull private Client client;
 
-    @ToString.Exclude
     @ManyToOne
-    private City city;
-
-    public Address(String street, String number, String complement, String postalCode, Client client, City city) {
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.postalCode = postalCode;
-        this.client = client;
-        this.city = city;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
-        return Objects.equals(id, address.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    @NonNull private City city;
 }

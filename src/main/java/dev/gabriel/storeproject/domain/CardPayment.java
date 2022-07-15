@@ -9,14 +9,12 @@ import javax.persistence.Entity;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @Entity
 public class CardPayment extends Payment implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     private Integer installments;
 
@@ -24,5 +22,4 @@ public class CardPayment extends Payment implements Serializable {
         super(status, purchase);
         this.installments = installments;
     }
-
 }

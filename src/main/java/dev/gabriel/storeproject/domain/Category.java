@@ -8,24 +8,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 public class Category implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    private String name;
+    @NonNull private String name;
 
-    @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 }

@@ -1,34 +1,25 @@
 package dev.gabriel.storeproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 @Entity
 public class PurchaseItem implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     @JsonIgnore
     private PurchaseItemPK id = new PurchaseItemPK();
-
-    @EqualsAndHashCode.Exclude
     private Double discount;
-
-    @EqualsAndHashCode.Exclude
     private Integer quantity;
-
-    @EqualsAndHashCode.Exclude
     private Double price;
 
     public PurchaseItem(Purchase purchase, Product product, Double discount, Integer quantity, Double price) {

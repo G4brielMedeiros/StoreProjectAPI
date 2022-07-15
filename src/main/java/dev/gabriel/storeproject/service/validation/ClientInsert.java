@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
 public @interface ClientInsert {
 
     String message() default "Validation error";
-
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

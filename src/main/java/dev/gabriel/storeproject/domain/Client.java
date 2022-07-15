@@ -9,17 +9,17 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Client implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
 
     @Column(unique = true)
@@ -38,7 +38,6 @@ public class Client implements Serializable {
     @Column(name = "phone_number")
     private Set<String> phoneNumbers = new HashSet<>();
 
-
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     private List<Purchase> purchases = new ArrayList<>();
@@ -56,18 +55,5 @@ public class Client implements Serializable {
 
     public ClientType getType() {
         return ClientType.toEnum(this.type);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(id, client.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

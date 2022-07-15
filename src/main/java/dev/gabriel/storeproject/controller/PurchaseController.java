@@ -18,7 +18,6 @@ public class PurchaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Purchase> findById(@PathVariable Integer id) {
-
         Purchase purchase = service.findById(id);
         return ResponseEntity.ok().body(purchase);
     }

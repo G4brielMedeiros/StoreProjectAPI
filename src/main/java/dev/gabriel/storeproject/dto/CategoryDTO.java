@@ -14,8 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class CategoryDTO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     public Integer id;
 

@@ -10,8 +10,7 @@ import java.io.Serializable;
 @Setter
 public class StandardError implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
     private Integer status;
     private String msg;

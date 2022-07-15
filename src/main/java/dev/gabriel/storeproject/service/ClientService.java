@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +57,7 @@ public class ClientService implements EntityService<Client> {
                 dto.getNumber(),
                 dto.getComplement(),
                 dto.getPostalCode(),
-                client,
-                city
+                client, city
         );
 
         client.getAddresses().add(address);
@@ -83,7 +83,6 @@ public class ClientService implements EntityService<Client> {
 
     public void deleteById(Integer id) {
         findById(id);
-
         try {
             repository.deleteById(id);
         } catch (DataIntegrityViolationException exception) {
@@ -92,9 +91,7 @@ public class ClientService implements EntityService<Client> {
     }
 
     public Page<ClientDTO> findPage(Integer page, Integer size, String orderBy, String direction) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(direction), orderBy);
-
-        Page<Client> clientList = repository.findAll(pageRequest);
-        return clientList.map(ClientDTO::new);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.valueOf(StringUtils.capitalize(direction)), orderBy);
+        return repository.findAll(pageRequest).map(ClientDTO::new);
     }
 }

@@ -7,26 +7,20 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Data
+@Getter @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 public class City implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+    @Serial private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    private String name;
+    @NonNull private String name;
 
-    @NonNull
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+
     @ManyToOne
-    private State state;
+    @NonNull private State state;
 }

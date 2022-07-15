@@ -20,9 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, ClientDTO> {
 
-
     final ClientRepository clientRepository;
-
     final HttpServletRequest request;
 
     @Override

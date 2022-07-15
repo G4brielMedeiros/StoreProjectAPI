@@ -6,6 +6,7 @@ import dev.gabriel.storeproject.repository.CategoryRepository;
 import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,13 +32,12 @@ public class CategoryService implements EntityService<Category> {
     }
 
     public Category add(CategoryDTO dto) {
-        Category category = new Category(dto.getName());
-        return repository.save(category);
+        return repository.save(new Category(dto.getName()));
     }
 
     public void update(CategoryDTO dto) {
         Category category = findById(dto.getId());
-        category.setName(dto.getName());
+        BeanUtils.copyProperties(dto, category);
         repository.save(category);
     }
 
@@ -55,7 +55,6 @@ public class CategoryService implements EntityService<Category> {
         PageRequest pageRequest = PageRequest
                 .of(page, size, Sort.Direction.valueOf(StringUtils.capitalize(direction)), orderBy);
 
-        Page<Category> categoryPage = repository.findAll(pageRequest);
-        return categoryPage.map(CategoryDTO::new);
+        return repository.findAll(pageRequest).map(CategoryDTO::new);
     }
 }
