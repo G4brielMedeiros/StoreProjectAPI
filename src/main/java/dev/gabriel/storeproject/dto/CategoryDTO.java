@@ -19,7 +19,7 @@ public class CategoryDTO implements Serializable {
     public Integer id;
 
     @NotEmpty(message = "Name must not be empty.")
-    @Length(min = 5, max = 80, message = "Name must be between 5 and 80 characters.")
+    @Length(min = 3, max = 80, message = "Name must be between 3 and 80 characters.")
     public String name;
 
     public CategoryDTO(Category obj) {

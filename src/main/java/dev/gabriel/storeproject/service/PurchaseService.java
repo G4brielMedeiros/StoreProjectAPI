@@ -37,8 +37,6 @@ public class PurchaseService implements EntityService<Purchase>{
             invoiceService.fillInvoicePayment(payment, purchase.getInstant());
         }
 
-
-
         purchase.getItems().forEach(purchaseItem -> {
             purchaseItem.setDiscount(0.0);
             purchaseItem.setPrice(productService.findById(purchaseItem.getProduct().getId()).getPrice());
