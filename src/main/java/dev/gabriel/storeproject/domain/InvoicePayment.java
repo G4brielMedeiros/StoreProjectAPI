@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import dev.gabriel.storeproject.domain.enums.PaymentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonTypeName("invoicePayment")
 public class InvoicePayment extends Payment implements Serializable {
 
     @Serial private static final long serialVersionUID = 1L;

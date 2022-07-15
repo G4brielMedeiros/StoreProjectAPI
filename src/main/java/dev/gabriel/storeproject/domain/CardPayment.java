@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import dev.gabriel.storeproject.domain.enums.PaymentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
+@JsonTypeName("cardPayment")
 public class CardPayment extends Payment implements Serializable {
 
     @Serial private static final long serialVersionUID = 1L;

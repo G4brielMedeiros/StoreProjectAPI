@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dev.gabriel.storeproject.domain.enums.PaymentStatus;
 import lombok.*;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 public abstract class Payment implements Serializable {
 
     @Serial private static final long serialVersionUID = 1L;

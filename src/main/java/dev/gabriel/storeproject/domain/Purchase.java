@@ -21,23 +21,24 @@ public class Purchase implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private Date instant;
+    @NonNull private Date instant;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "purchase")
     private Payment payment;
 
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client client;
+    @NonNull private Client client;
 
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
-    private Address deliveryAddress;
+    @NonNull private Address deliveryAddress;
 
     @OneToMany(mappedBy = "id.purchase")
     private Set<PurchaseItem> items = new HashSet<>();
+
+    public double getTotalPrice() {
+        return items.stream().mapToDouble(PurchaseItem::getSubTotal).sum();
+    }
 }
