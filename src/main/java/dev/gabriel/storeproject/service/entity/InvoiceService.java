@@ -1,4 +1,4 @@
-package dev.gabriel.storeproject.service;
+package dev.gabriel.storeproject.service.entity;
 
 import dev.gabriel.storeproject.domain.InvoicePayment;
 import org.springframework.stereotype.Service;

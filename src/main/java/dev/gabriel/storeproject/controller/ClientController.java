@@ -3,7 +3,7 @@ package dev.gabriel.storeproject.controller;
 import dev.gabriel.storeproject.domain.Client;
 import dev.gabriel.storeproject.dto.ClientDTO;
 import dev.gabriel.storeproject.dto.NewClientDTO;
-import dev.gabriel.storeproject.service.ClientService;
+import dev.gabriel.storeproject.service.entity.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

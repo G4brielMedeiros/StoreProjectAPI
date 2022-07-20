@@ -2,7 +2,7 @@ package dev.gabriel.storeproject.controller;
 
 import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.dto.CategoryDTO;
-import dev.gabriel.storeproject.service.CategoryService;
+import dev.gabriel.storeproject.service.entity.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

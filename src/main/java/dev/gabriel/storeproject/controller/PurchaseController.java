@@ -1,9 +1,7 @@
 package dev.gabriel.storeproject.controller;
 
-import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.domain.Purchase;
-import dev.gabriel.storeproject.dto.CategoryDTO;
-import dev.gabriel.storeproject.service.PurchaseService;
+import dev.gabriel.storeproject.service.entity.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

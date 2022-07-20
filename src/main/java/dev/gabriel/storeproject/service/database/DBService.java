@@ -1,4 +1,4 @@
-package dev.gabriel.storeproject.service;
+package dev.gabriel.storeproject.service.database;
 
 import dev.gabriel.storeproject.domain.*;
 import dev.gabriel.storeproject.domain.enums.ClientType;
@@ -79,7 +79,7 @@ public class DBService {
         st2.getCities().add(c2);
         st2.getCities().add(c3);
 
-        Client cli1 = new Client("Mary Jane", "mary@jane.com", "12332132", ClientType.PERSON);
+        Client cli1 = new Client("Mary Jane", "gabriellinsmedeiros@gmail.com", "12332132", ClientType.PERSON);
         Client cli2 = new Client("John Dilly", "johnny@mail.com", "12758492", ClientType.PERSON);
 
         cli1.getPhoneNumbers().add("1234567890");

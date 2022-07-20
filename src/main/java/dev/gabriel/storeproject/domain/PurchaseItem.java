@@ -7,6 +7,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -49,5 +51,26 @@ public class PurchaseItem implements Serializable {
 
     public double getSubTotal() {
         return (this.price - this.discount) * this.quantity;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        final StringBuffer sb = new StringBuffer();
+
+        sb.append("[");
+        sb.append(getQuantity());
+        sb.append("] ");
+
+        sb.append(getProduct().getName());
+
+        sb.append(", Unit price: ");
+        sb.append(nf.format(getPrice()));
+
+        sb.append(", Subtotal: ");
+        sb.append(nf.format(getSubTotal()));
+        sb.append("\n");
+        return sb.toString();
     }
 }

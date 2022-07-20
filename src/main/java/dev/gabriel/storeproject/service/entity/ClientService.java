@@ -1,11 +1,9 @@
-package dev.gabriel.storeproject.service;
+package dev.gabriel.storeproject.service.entity;
 
 import dev.gabriel.storeproject.domain.Address;
-import dev.gabriel.storeproject.domain.Category;
 import dev.gabriel.storeproject.domain.City;
 import dev.gabriel.storeproject.domain.Client;
 import dev.gabriel.storeproject.domain.enums.ClientType;
-import dev.gabriel.storeproject.dto.CategoryDTO;
 import dev.gabriel.storeproject.dto.ClientDTO;
 import dev.gabriel.storeproject.dto.NewClientDTO;
 import dev.gabriel.storeproject.repository.CityRepository;
@@ -21,9 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
