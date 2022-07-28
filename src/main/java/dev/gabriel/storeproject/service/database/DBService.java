@@ -3,6 +3,7 @@ package dev.gabriel.storeproject.service.database;
 import dev.gabriel.storeproject.domain.*;
 import dev.gabriel.storeproject.domain.enums.ClientType;
 import dev.gabriel.storeproject.domain.enums.PaymentStatus;
+import dev.gabriel.storeproject.domain.enums.Profile;
 import dev.gabriel.storeproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,19 +82,23 @@ public class DBService {
         st2.getCities().add(c2);
         st2.getCities().add(c3);
 
-        Client cli1 = new Client("Mary Jane", "gabriellinsmedeiros@gmail.com", "12332132", ClientType.PERSON, passwordEncoder.encode("123"));
-        Client cli2 = new Client("John Dilly", "johnny@mail.com", "12758492", ClientType.PERSON, passwordEncoder.encode("123"));
+        Client cli1 = new Client("Mary Jane", "gabriellinsmedeiros@gmail.com", "51539692159", ClientType.PERSON, passwordEncoder.encode("123"));
+        Client cli2 = new Client("John Dilly", "johnny@mail.com", "71049988884", ClientType.PERSON, passwordEncoder.encode("123"));
+        cli2.addProfile(Profile.ADMIN);
 
         cli1.getPhoneNumbers().add("1234567890");
         cli1.getPhoneNumbers().add("0987654321");
 
+        cli2.getPhoneNumbers().add("9999999999");
 
         Address e1 = new Address("Main Street", "300", "Apt 123", "51030450", cli1, c1);
         Address e2 = new Address("Seen Street", "660", "", "99999999", cli1, c2);
 
+        Address e3 = new Address("Other Street", "77", "Apt 4", "51030450", cli2, c1);
+
         cli1.getAddresses().add(e1);
         cli1.getAddresses().add(e2);
-
+        cli2.getAddresses().add(e3);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Purchase pur1 = new Purchase(sdf.parse("30/09/2017 10:32"), cli1, e1);
@@ -124,7 +129,7 @@ public class DBService {
         stateRepository.saveAll(List.of(st1, st2));
         cityRepository.saveAll(List.of(c1, c2, c3));
         clientRepository.saveAll(List.of(cli1, cli2));
-        addressRepository.saveAll(List.of(e1, e2));
+        addressRepository.saveAll(List.of(e1, e2, e3));
         purchaseRepository.saveAll((List.of(pur1, pur2)));
         paymentRepository.saveAll(List.of(pay1, pay2));
         purchaseItemRepository.saveAll(List.of(pi1, pi2, pi3));
