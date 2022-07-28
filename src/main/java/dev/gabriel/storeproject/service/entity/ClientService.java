@@ -16,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +28,7 @@ public class ClientService implements EntityService<Client> {
 
     final ClientRepository repository;
     final CityRepository cityRepository;
+    final BCryptPasswordEncoder passwordEncoder;
 
     public List<Client> findAll() {
         return repository.findAll();
@@ -42,7 +44,8 @@ public class ClientService implements EntityService<Client> {
                 dto.getName(),
                 dto.getEmail(),
                 dto.getGovernmentRegistration(),
-                ClientType.toEnum(dto.getType())
+                ClientType.toEnum(dto.getType()),
+                passwordEncoder.encode(dto.getPassword())
         );
 
         City city = cityRepository.findById(dto.getCityId()).orElseThrow(

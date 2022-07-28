@@ -15,9 +15,11 @@ import java.util.*;
 @Entity
 public class Client implements Serializable {
 
-    @Serial private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -29,6 +31,9 @@ public class Client implements Serializable {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Integer type;
+
+    @JsonIgnore
+    private String password;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
@@ -42,11 +47,12 @@ public class Client implements Serializable {
     @JsonIgnore
     private List<Purchase> purchases = new ArrayList<>();
 
-    public Client(String name, String email, String governmentRegistration, ClientType type) {
+    public Client(String name, String email, String governmentRegistration, ClientType type, String password) {
         this.name = name;
         this.email = email;
         this.governmentRegistration = governmentRegistration;
         this.type = type.getCode();
+        this.password = password;
     }
 
     public void setType(ClientType type) {
