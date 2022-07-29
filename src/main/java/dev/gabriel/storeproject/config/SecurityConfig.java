@@ -1,6 +1,7 @@
 package dev.gabriel.storeproject.config;
 
 import dev.gabriel.storeproject.service.security.JWTAuthenticationFilter;
+import dev.gabriel.storeproject.service.security.JWTAuthorizationFilter;
 import dev.gabriel.storeproject.service.security.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -57,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
