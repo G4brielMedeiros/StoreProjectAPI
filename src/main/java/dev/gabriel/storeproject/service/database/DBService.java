@@ -82,8 +82,8 @@ public class DBService {
         st2.getCities().add(c2);
         st2.getCities().add(c3);
 
-        Client cli1 = new Client("Mary Jane", "gabriellinsmedeiros@gmail.com", "51539692159", ClientType.PERSON, passwordEncoder.encode("123"));
-        Client cli2 = new Client("John Dilly", "johnny@mail.com", "71049988884", ClientType.PERSON, passwordEncoder.encode("123"));
+        Client cli1 = new Client("Bob Client", "client@mail.com", "51539692159", ClientType.PERSON, passwordEncoder.encode("123"));
+        Client cli2 = new Client("Alice Admin", "admin@mail.com", "71049988884", ClientType.PERSON, passwordEncoder.encode("123"));
         cli2.addProfile(Profile.ADMIN);
 
         cli1.getPhoneNumbers().add("1234567890");
