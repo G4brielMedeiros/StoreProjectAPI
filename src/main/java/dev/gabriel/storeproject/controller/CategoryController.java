@@ -6,6 +6,7 @@ import dev.gabriel.storeproject.service.entity.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +22,7 @@ public class CategoryController {
 
     final CategoryService service;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> create( @Valid @RequestBody CategoryDTO dto) {
         Category category = service.add(dto);
@@ -43,6 +45,8 @@ public class CategoryController {
         return ResponseEntity.ok(categoryList);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO dto, @PathVariable Integer id) {
         dto.setId(id);
@@ -50,6 +54,7 @@ public class CategoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Category> delete(@PathVariable Integer id) {
         service.deleteById(id);
