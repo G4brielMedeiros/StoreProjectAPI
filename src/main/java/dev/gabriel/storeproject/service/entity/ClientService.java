@@ -4,10 +4,14 @@ import dev.gabriel.storeproject.domain.Address;
 import dev.gabriel.storeproject.domain.City;
 import dev.gabriel.storeproject.domain.Client;
 import dev.gabriel.storeproject.domain.enums.ClientType;
+import dev.gabriel.storeproject.domain.enums.Profile;
 import dev.gabriel.storeproject.dto.ClientDTO;
 import dev.gabriel.storeproject.dto.NewClientDTO;
 import dev.gabriel.storeproject.repository.CityRepository;
 import dev.gabriel.storeproject.repository.ClientRepository;
+import dev.gabriel.storeproject.security.UserSS;
+import dev.gabriel.storeproject.service.UserService;
+import dev.gabriel.storeproject.service.exception.AuthorizationException;
 import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +28,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ClientService implements EntityService<Client> {
+public class ClientService {
 
     final ClientRepository repository;
     final CityRepository cityRepository;
@@ -35,6 +39,13 @@ public class ClientService implements EntityService<Client> {
     }
 
     public Client findById(Integer id) {
+
+        UserSS user = UserService.authenticated();
+
+        if (user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Access denied.");
+        }
+
         return repository.findById(id).orElseThrow(
                 () -> new ObjectNotFoundException("" + Client.class.getSimpleName() + " not found. Id: " + id));
     }

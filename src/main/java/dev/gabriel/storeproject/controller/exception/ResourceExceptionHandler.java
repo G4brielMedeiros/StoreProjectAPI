@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.controller.exception;
 
+import dev.gabriel.storeproject.service.exception.AuthorizationException;
 import dev.gabriel.storeproject.service.exception.DataIntegrityException;
 import dev.gabriel.storeproject.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,13 @@ public class ResourceExceptionHandler {
         StandardError error = new StandardError
                 (HttpStatus.BAD_REQUEST.value(), exception.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException exception) {
+
+        StandardError error = new StandardError
+                (HttpStatus.FORBIDDEN.value(), exception.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }
