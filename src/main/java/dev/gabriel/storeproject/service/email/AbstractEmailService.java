@@ -1,5 +1,6 @@
 package dev.gabriel.storeproject.service.email;
 
+import dev.gabriel.storeproject.domain.Client;
 import dev.gabriel.storeproject.domain.Purchase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +28,23 @@ public abstract class AbstractEmailService implements EmailService{
         sendEmail(message);
     }
 
+    public void sendNewPasswordEmail(Client client, String newPassword){
+        SimpleMailMessage message = prepareNewPasswordEmail(client, newPassword);
+        sendEmail(message);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Client client, String newPassword) {
+        var simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(client.getEmail());
+        simpleMailMessage.setFrom(sender);
+        simpleMailMessage.setSubject("Your new password");
+        simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));
+        simpleMailMessage.setText("Your new password is: " + newPassword);
+        return simpleMailMessage;
+    }
+
     protected SimpleMailMessage prepareSimpleMailMessageFromPurchase(Purchase purchase) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        var simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(purchase.getClient().getEmail());
         simpleMailMessage.setFrom(sender);
         simpleMailMessage.setSubject("Order #" + purchase.getId() + " is confirmed!");
@@ -38,7 +54,7 @@ public abstract class AbstractEmailService implements EmailService{
     }
 
     protected String htmlFromPurchaseTemplate(Purchase purchase) {
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("purchase", purchase);
         return templateEngine.process("email/purchaseConfirmation", context);
     }
@@ -53,7 +69,7 @@ public abstract class AbstractEmailService implements EmailService{
     }
 
     protected MimeMessage prepareMimeMessageFromPurchase(Purchase purchase) throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        var mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setTo(purchase.getClient().getEmail());
         mimeMessageHelper.setFrom(sender);
